@@ -1,0 +1,169 @@
+/* style.css */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: sans-serif;
+}
+.container {
+  display: flex;
+  height: 100vh;
+}
+.left {
+  flex: 1;
+  background: #f0f0f0;
+  border-right: 2px solid #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+.todo-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.todo-controls {
+  display: flex;
+  gap: 5px;
+}
+#todoInput, #todoSelect {
+  flex: 1;
+  padding: 5px;
+  font-size: 16px;
+}
+#addTodoBtn {
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em 10px 0.5em 20px;
+  font-size: 16px;
+  font-weight: bold;
+  user-select: none;
+  cursor: grab;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.todo-item:active { cursor: grabbing; }
+.todo-item.selected { border: 3px solid black; }
+.delete-btn {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+.button-group button {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.right {
+  flex: 2;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(50px, 1fr);
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+}
+.cell {
+  background: #d0e0ff;
+  border: 1px solid #aaa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  transition: font-size 0.2s;
+  user-select: none;
+}
+.cell.absent {
+  background-color: #eee;
+  color: gray;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  width: 360px;
+  border-radius: 8px;
+  text-align: center;
+  position: absolute;
+}
+.modal-content textarea {
+  width: 100%;
+  height: 60px;
+  font-size: 14px;
+}
+input[type="range"] {
+  width: 100%;
+}
+
+/* Dashboard */
+#dashboardView {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  overflow-y: auto;
+  padding: 20px;
+  z-index: 1000;
+}
+/* 헤더 전체를 상단 우측에 고정 */
+.dashboard-header {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  left: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* 버튼 그룹 */
+.dash-header-buttons button {
+  margin-left: 8px;
+}
+#dashMainTitle {
+  margin: 0;
+}
+.dashboard-list {
+  margin-top: 80px; /* 헤더 아래 여유 */
+}
+.dash-item {
+  margin-bottom: 15px;
+}
+.dash-heading {
+  margin: 0;
+  font-weight: bold;
+}
+.dash-text {
+  margin: 5px 0 0;
+}
