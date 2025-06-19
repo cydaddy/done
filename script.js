@@ -359,12 +359,10 @@
     renderGrid();
   });
   resetCompletionBtn.addEventListener('click', () => {
-    if (selectedTodoIndex != null) {
-      todoItems[selectedTodoIndex].studentStates = {};
-      saveTodos();
-      renderGrid();
-      alert('현재 과제 완료 기록이 초기화되었습니다.');
-    }
+    todoItems.forEach(t => { t.studentStates = {}; });
+    saveTodos();
+    renderGrid();
+    alert('모든 과제 완료 기록이 초기화되었습니다.');
   });
   window.addEventListener('click', e => {
     if (e.target === settingsModal) settingsModal.style.display = 'none';
