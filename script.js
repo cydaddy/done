@@ -253,7 +253,7 @@
       }
 
       let lp;
-      cell.addEventListener('mousedown', () => {
+      const startPress = () => {
         lp = setTimeout(() => {
           cell.dataset.longPressed = 'true';
           blink(cell, () => {
@@ -263,8 +263,12 @@
             delete cell.dataset.longPressed;
           });
         }, 10000);
-      });
-      ['mouseup','mouseleave'].forEach(evt => cell.addEventListener(evt, () => clearTimeout(lp)));
+      };
+      const cancelPress = () => clearTimeout(lp);
+      ['mousedown', 'touchstart'].forEach(evt =>
+        cell.addEventListener(evt, startPress));
+      ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(evt =>
+        cell.addEventListener(evt, cancelPress));
 
       cell.addEventListener('click', e => {
         if (cell.dataset.longPressed) {
