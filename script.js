@@ -1,3 +1,5 @@
+let longPressTimer;
+const longPressDuration = 10000; // 10초
 // script.js
 (function() {
   'use strict';
@@ -252,19 +254,37 @@
         cell.style.color = done ? 'gray' : 'black';
       }
 
-      let lp;
-      cell.addEventListener('mousedown', () => {
-        lp = setTimeout(() => {
-          cell.dataset.longPressed = 'true';
-          blink(cell, () => {
-            if (specialStudents.has(name)) specialStudents.delete(name);
-            else specialStudents.add(name);
-            saveSpecial();
-            delete cell.dataset.longPressed;
-          });
-        }, 10000);
-      });
-      ['mouseup','mouseleave'].forEach(evt => cell.addEventListener(evt, () => clearTimeout(lp)));
+    // … inside renderGrid(), after setting up `cell` …
+    let lp;
+    // 마우스 누름 시작
+    cell.addEventListener('mousedown', () => {
+      lp = setTimeout(() => {
+        cell.dataset.longPressed = 'true';
+        blink(cell, () => {
+          if (specialStudents.has(name)) specialStudents.delete(name);
+          else specialStudents.add(name);
+          saveSpecial();
+          delete cell.dataset.longPressed;
+        });
+      }, 10000);
+    });
+    // 터치 시작 (터치 스크롤 방지를 위해 passive: false & preventDefault)
+    cell.addEventListener('touchstart', e => {
+      e.preventDefault();
+      lp = setTimeout(() => {
+        cell.dataset.longPressed = 'true';
+        blink(cell, () => {
+          if (specialStudents.has(name)) specialStudents.delete(name);
+          else specialStudents.add(name);
+          saveSpecial();
+          delete cell.dataset.longPressed;
+        });
+      }, 10000);
+    }, { passive: false });
+    // 누름 해제 및 취소 시 타이머 취소
+    ['mouseup','mouseleave','touchend','touchcancel']
+      .forEach(evt => cell.addEventListener(evt, () => clearTimeout(lp)));
+
 
       cell.addEventListener('click', e => {
         if (cell.dataset.longPressed) {
