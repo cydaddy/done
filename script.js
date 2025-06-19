@@ -150,10 +150,9 @@
     todoItems.forEach((item, i) => {
       const div = document.createElement('div');
       div.className = 'todo-item';
-          if (i === selectedTodoIndex) {
-      div.classList.add('selected');
-    }
-    div.textContent = item.text;
+      if (i === selectedTodoIndex) {
+        div.classList.add('selected');
+      }
       div.textContent = item.text;
       div.style.backgroundColor = item.color;
       div.style.fontSize = savedTodoFontSize + 'px';
