@@ -1,5 +1,3 @@
-let longPressTimer;
-const longPressDuration = 10000; // 10초
 // script.js
 (function() {
   'use strict';
@@ -254,22 +252,19 @@ const longPressDuration = 10000; // 10초
         cell.style.color = done ? 'gray' : 'black';
       }
 
-    // … inside renderGrid(), after setting up `cell` …
-    let lp;
-    cell.addEventListener('mousedown', () => {
-      lp = setTimeout(() => {
-        cell.dataset.longPressed = 'true';
-        blink(cell, () => {
-          if (specialStudents.has(name)) specialStudents.delete(name);
-          else specialStudents.add(name);
-          saveSpecial();
-          delete cell.dataset.longPressed;
-        });
-      }, 10000);
-    });
-    ['mouseup','mouseleave'].forEach(evt => cell.addEventListener(evt, () => clearTimeout(lp)));
-
-
+      let lp;
+      cell.addEventListener('mousedown', () => {
+        lp = setTimeout(() => {
+          cell.dataset.longPressed = 'true';
+          blink(cell, () => {
+            if (specialStudents.has(name)) specialStudents.delete(name);
+            else specialStudents.add(name);
+            saveSpecial();
+            delete cell.dataset.longPressed;
+          });
+        }, 10000);
+      });
+      ['mouseup','mouseleave'].forEach(evt => cell.addEventListener(evt, () => clearTimeout(lp)));
 
       cell.addEventListener('click', e => {
         if (cell.dataset.longPressed) {
