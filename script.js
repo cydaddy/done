@@ -252,19 +252,28 @@
         cell.style.color = done ? 'gray' : 'black';
       }
 
-      let lp;
-      cell.addEventListener('mousedown', () => {
-        lp = setTimeout(() => {
-          cell.dataset.longPressed = 'true';
-          blink(cell, () => {
-            if (specialStudents.has(name)) specialStudents.delete(name);
-            else specialStudents.add(name);
-            saveSpecial();
-            delete cell.dataset.longPressed;
-          });
-        }, 10000);
-      });
-      ['mouseup','mouseleave'].forEach(evt => cell.addEventListener(evt, () => clearTimeout(lp)));
+    // ====== 특수 아동 지정 (5초 롱클릭 & 롱터치) ======
+    let lp;
+    const startPress = () => {
+      lp = setTimeout(() => {
+        cell.dataset.longPressed = 'true';
+        blink(cell, () => {
+          if (specialStudents.has(name)) specialStudents.delete(name);
+          else specialStudents.add(name);
+          saveSpecial();
+          delete cell.dataset.longPressed;
+        });
+      }, 5000); // 5초
+    };
+    // 마우스 & 터치 시작
+    ['mousedown', 'touchstart'].forEach(evt =>
+      cell.addEventListener(evt, startPress)
+    );
+    // 마우스 & 터치 종료 또는 이탈 시 타이머 취소
+    ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(evt =>
+      cell.addEventListener(evt, () => clearTimeout(lp))
+    );
+    // ================================================
 
       cell.addEventListener('click', e => {
         if (cell.dataset.longPressed) {
@@ -359,13 +368,15 @@
     renderGrid();
   });
   resetCompletionBtn.addEventListener('click', () => {
-    if (selectedTodoIndex != null) {
-      todoItems[selectedTodoIndex].studentStates = {};
-      saveTodos();
-      renderGrid();
-      alert('현재 과제 완료 기록이 초기화되었습니다.');
-    }
+    // 모든 할 일의 완료 기록을 초기화
+    todoItems.forEach(item => {
+      item.studentStates = {};
+    });
+    saveTodos();
+    renderGrid();
+    alert('모든 과제 완료 기록이 초기화되었습니다.');
   });
+
   window.addEventListener('click', e => {
     if (e.target === settingsModal) settingsModal.style.display = 'none';
     if (e.target === dashSettingsModal) dashSettingsModal.style.display = 'none';
