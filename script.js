@@ -206,32 +206,34 @@
         }
       });
 
-      div.addEventListener('click', e => {
-  // ★ 다섯 번 탭하면 삭제
-  if (e.detail === 5) {
-    if (todoItems.length <= 1) {
-      alert('할 일은 최소 한 개는 있어야 합니다.');
-      return;
-    }
-    todoItems.splice(i, 1);
-    if (selectedTodoIndex === i) selectedTodoIndex = i > 0 ? i - 1 : 0;
-    else if (selectedTodoIndex > i) selectedTodoIndex--;
-    saveTodos();
-    renderTodos();
-    renderGrid();
-    return;
-  }
+   // --- 클릭 5회 삭제 (PC) ---
+   div.addEventListener('click', e => {
+     if (e.detail === 5) {
+       deleteTodo(i);
+       return;
+     }
+     if (e.detail === 1) {
+       selectedTodoIndex = i;
+       renderTodos(); renderGrid();
+     } else if (e.detail === 3) {
+       div.contentEditable = 'true'; div.focus();
+     }
+   });
 
-  // (기존 로직 유지)
-  if (e.detail === 1) {
-    selectedTodoIndex = i;
-    renderTodos();
-    renderGrid();
-  } else if (e.detail === 3) {
-    div.contentEditable = 'true';
-    div.focus();
-  }
-});
+   // --- 터치 5회 삭제 (태블릿) ---
+   let touchCount = 0, touchTimer;
+   div.addEventListener('touchend', e => {
+     touchCount++;
+     if (touchCount === 5) {
+       deleteTodo(i);
+       touchCount = 0;
+       clearTimeout(touchTimer);
+       return;
+     }
+     // 1초 안에 5번 안 오면 초기화
+     clearTimeout(touchTimer);
+     touchTimer = setTimeout(() => touchCount = 0, 1000);
+   });
       todoList.appendChild(div);
     });
   }
