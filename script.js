@@ -134,6 +134,10 @@
   const dashTextFontSlider    = document.getElementById('dashTextFontSlider');
   const dashTextFontValue     = document.getElementById('dashTextFontValue');
 
+  addTodoBtn.addEventListener('touchstart', () => {
+  todoInput.blur();
+});
+  
   // --- Renderers ---
   function populateSelect() {
     todoSelect.innerHTML = '';
