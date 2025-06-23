@@ -467,5 +467,21 @@ addTodoBtn.addEventListener('click', () => {
     document.querySelectorAll('.dash-text')
       .forEach(p => p.style.fontSize = dashTextFontSize + 'px');
   });
-
+function deleteTodo(i) {
+  if (todoItems.length <= 1) {
+    alert('할 일은 최소 한 개는 있어야 합니다.');
+    return;
+  }
+  // i번째 항목 삭제
+  todoItems.splice(i, 1);
+  // 선택 인덱스 보정
+  if (selectedTodoIndex === i) {
+    selectedTodoIndex = i > 0 ? i - 1 : 0;
+  } else if (selectedTodoIndex > i) {
+    selectedTodoIndex--;
+  }
+  saveTodos();
+  renderTodos();
+  renderGrid();
+}
 })();
