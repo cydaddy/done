@@ -50,6 +50,14 @@ body, html {
   padding: 0.5em 10px 0.5em 20px;
   font-size: 16px;
   font-weight: bold;
+  /* 터치 기기에서 텍스트 선택 방지 */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
+  /* iOS 터치 메뉴 비활성화 & 빠른 탭 처리 */
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
   user-select: none;
   cursor: grab;
   border: 1px solid transparent;
