@@ -336,8 +336,15 @@
   renderGrid();
 
   addTodoBtn.addEventListener('click', () => {
-    const txt = todoInput.value.trim() || todoSelect.value;
-    if (!txt) return;
+let txt = '';
+if (todoInput.value.trim() !== '') {
+  // 입력란에 텍스트가 있으면 그 값을 사용
+  txt = todoInput.value.trim();
+} else {
+  // 아니면 드롭다운에서 선택된 값을 사용
+  txt = todoSelect.value;
+}
+if (!txt) return;
     const color = randomPastel(), id = Date.now() + Math.random();
     todoItems.push({ id, text: txt, color, studentStates: {} });
     saveTodos();
