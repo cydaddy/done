@@ -336,6 +336,7 @@
   renderGrid();
 
   addTodoBtn.addEventListener('click', () => {
+    todoInput.blur();
 let txt = '';
 if (todoInput.value.trim() !== '') {
   // 입력란에 텍스트가 있으면 그 값을 사용
