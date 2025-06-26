@@ -326,7 +326,11 @@
       h.style.fontSize = dashTitleFontSize + 'px';
       const p = document.createElement('p');
       p.className = 'dash-text';
-      const pending = studentNames.filter(n => !item.studentStates[n] && !specialStudents.has(n));
+      const pending = studentNames.filter(n =>
+  !item.studentStates[n] &&
+  !specialStudents.has(n) &&
+  !absentStudents.has(n)    // 결석생은 제외
+);
       p.textContent = pending.length ? pending.join(', ') : '모두 완료';
       p.style.fontSize = dashTextFontSize + 'px';
       div.appendChild(h);
