@@ -146,15 +146,15 @@ input[type="range"] {
   padding: 20px;
   z-index: 1000;
 }
-/* 헤더 전체를 상단 우측에 고정 */
+/* 헤더를 문서 흐름에 따라 배치 */
 .dashboard-header {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  left: 20px;
+  /* position: absolute 삭제 */
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 20px;        /* 상하좌우 여백 추가 */
+  box-sizing: border-box;
 }
 /* 버튼 그룹 */
 .dash-header-buttons button {
@@ -163,8 +163,9 @@ input[type="range"] {
 #dashMainTitle {
   margin: 0;
 }
+/* 본문은 헤더 아래로 자연스럽게 배치 */
 .dashboard-list {
-  margin-top: 80px; /* 헤더 아래 여유 */
+  margin-top: 20px;     /* 헤더 아래 20px 띄우기 */
 }
 .dash-item {
   margin-bottom: 15px;
